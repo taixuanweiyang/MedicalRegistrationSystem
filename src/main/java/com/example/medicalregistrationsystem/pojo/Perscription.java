@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 public class Perscription {
     private String patientNumber;
     private String time;
-    private String contenet;
+    private String content;
     private boolean feeStatus;
     private String doctorId;
 }

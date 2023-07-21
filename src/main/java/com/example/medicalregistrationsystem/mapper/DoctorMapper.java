@@ -37,6 +37,6 @@ public interface DoctorMapper {
     @Select("select * from doctors where Dept=#{dept}")
     public Doctor queryByDept(String doctorDept);
     //修改医生介绍信息
-    @Update("update department set Introduction = #{introduction} wehere Name = #{name}")
+    @Update("update doctors set Introduction = #{introduction} wehere ID = #{id}")
     public int updateInfo(Doctor patient);
 }
