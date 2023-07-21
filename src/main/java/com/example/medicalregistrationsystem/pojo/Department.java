@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Department {
     private String name;
-    private String Introduction;
+    private String introduction;
 
 }

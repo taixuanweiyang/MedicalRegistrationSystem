@@ -10,6 +10,6 @@ public class Doctor extends Patient{
 
     private String dept;
     private double fee;
-    private String Introduction;
+    private String introduction;
 
 }
