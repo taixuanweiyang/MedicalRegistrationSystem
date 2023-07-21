@@ -7,11 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class PatientSignupController {
-    @RequestMapping(value = "/patient/signup", method = RequestMethod.POST)
-    public boolean signup(@RequestBody Patient patient) {
+public class PatientModifyController {
+    @RequestMapping(value = "/patient/modify", method = RequestMethod.POST)
+    public String patientModify(@RequestBody Patient patient) {
 
-
-        return false;
+        return "";
     }
 }

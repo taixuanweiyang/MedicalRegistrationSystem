@@ -5,11 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class PatientPerscriptionInfo {
-    @RequestMapping(value = "/patient/perscription/info", method = RequestMethod.GET)
-    public String patientPerscriptionInfo(String patientID) {
+public class DoctorCaseAllInfoController {
+    @RequestMapping(value = "/doctor/case/allinfo", method = RequestMethod.GET)
+    public String doctorCaseAllInfo() {
 
-
-        return "";
+        return  " ";
     }
 }

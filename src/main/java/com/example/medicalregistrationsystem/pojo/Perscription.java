@@ -12,5 +12,4 @@ public class Perscription {
     private String contenet;
     private boolean feeStatus;
     private String doctorId;
-
 }
