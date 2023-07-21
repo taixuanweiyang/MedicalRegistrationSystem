@@ -1,44 +1,50 @@
 package com.example.medicalregistrationsystem.controller;
 
-import com.example.medicalregistrationsystem.pojo.CaseHistory;
-import com.example.medicalregistrationsystem.pojo.Doctor;
-import com.example.medicalregistrationsystem.pojo.MedicalRecord;
-import com.example.medicalregistrationsystem.pojo.Perscription;
+import com.example.medicalregistrationsystem.pojo.*;
+import com.example.medicalregistrationsystem.service.DoctorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import javax.print.Doc;
+import java.util.List;
+
+
+@RestController
 public class DoctorController {
+    @Autowired
+    private DoctorService doctorService;
     @RequestMapping(value = "/doctor", method = RequestMethod.GET)
-    public String doctor(String dept){
+    public Doctor doctor(String dept){
 
-        return "";
+        return doctorService.getDoctorByDept(dept);
     }
 
     @RequestMapping(value = "/doctor/login", method = RequestMethod.GET)
-    public String doctorLogin(String phone, String password) {
+    public DoctorLogin doctorLogin(String phone, String password) {
 
-        return "";
+        return doctorService.doctorLogin(phone, password);
     }
 
-    @RequestMapping(value = "/patient/signup", method = RequestMethod.POST)
-    public boolean patientSignup(@RequestBody Doctor doctor){
+    @RequestMapping(value = "/doctor/signup", method = RequestMethod.POST)
+    public boolean doctorSignup(@RequestBody Doctor doctor){
 
-        return false;
+        return doctorService.doctorSignup(doctor);
     }
 
     @RequestMapping(value = "/doctor/case/allinfo", method = RequestMethod.GET)
-    public String doctorCaseAllInfo() {
+    public List<CaseHistory> doctorCaseAllInfo() {
 
-        return  " ";
+        return  doctorService.getCaseAllInfo();
     }
 
     @RequestMapping(value = "/doctor/case/commit", method = RequestMethod.POST)
-    public String doctorCaseCommit(@RequestBody CaseHistory caseHistory) {
+    public boolean doctorCaseCommit(@RequestBody CaseHistory caseHistory) {
 
-        return "";
+        return doctorService.caseCommit(caseHistory);
     }
 
     @RequestMapping(value = "/doctor/medicalrecord/commit", method = RequestMethod.POST)
