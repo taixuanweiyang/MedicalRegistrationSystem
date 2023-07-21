@@ -10,5 +10,10 @@ import lombok.NoArgsConstructor;
 public class DoctorLogin {
     private boolean success;
     private Doctor doctor;
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+        success = (this.doctor != null);
+    }
 }
 
