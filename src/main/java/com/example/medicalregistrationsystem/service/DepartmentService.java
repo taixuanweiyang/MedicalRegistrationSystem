@@ -4,6 +4,6 @@ import com.example.medicalregistrationsystem.pojo.Department;
 
 import java.util.List;
 
-public interface DeptService {
+public interface DepartmentService {
     public List<Department> listDept();
 }
