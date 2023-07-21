@@ -19,7 +19,7 @@ public interface PatientMapper {
     //添加患者数据
     @Insert(
             "insert into patient (ID,Password,Name,Age,Sex,Phone)"+
-                    "'values (#{id},#{password},#{name},#{age},#{sex},#{phone})"
+                    "values (#{id},#{password},#{name},#{age},#{sex},#{phone})"
     )
     public int add(Patient patient);
 

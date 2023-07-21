@@ -1,5 +1,5 @@
 package com.example.medicalregistrationsystem.mapper;
-import com.example.medicalregistrationsystem.pojo.Doctor;
+
 import com.example.medicalregistrationsystem.pojo.Perscription;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,12 +17,16 @@ public interface PerscriptionMapper {
 
     //添加处方数据
     @Insert(
-            "insert into patient (ID,Password,Name,Age,Sex,Phone)"+
-                    "'values (#{id},#{password},#{name},#{age},#{sex},#{phone})"
+            "insert into Perscription (Patient_number,Time,Content,Fee_status,Doctor_ID)"+
+                    "values (#{patientNumber},#{time},#{content},#{feeStatus},#{doctorId})"
     )
     public int add(Perscription perscription);
 
     //根据患者身份证号查询数据
+    @Select(
+            "select * from perscription where Patient_number in" +
+                    "(select Patient_number from registration where Patient_ID=patientid)"
+    )
     public Perscription queryById(String patientId);
 
     //删除数据
