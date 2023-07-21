@@ -1,5 +1,6 @@
 package com.example.medicalregistrationsystem.service.impl;
 
+import com.example.medicalregistrationsystem.mapper.DepartmentMapper;
 import com.example.medicalregistrationsystem.pojo.Department;
 import com.example.medicalregistrationsystem.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,6 @@ public class DeptServiceImpl implements DeptService {
     private DepartmentMapper deptMapper;
     @Override
     public List<Department> listDept() {
-        return deptMapper.quaryAll();
+        return deptMapper.queryAll();
     }
 }
