@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.print.Doc;
 import java.util.List;
 
 
@@ -38,7 +37,7 @@ public class DoctorController {
     @RequestMapping(value = "/doctor/case/allinfo", method = RequestMethod.GET)
     public List<CaseHistory> doctorCaseAllInfo() {
 
-        return  doctorService.getCaseAllInfo();
+        return  doctorService.getAllCase();
     }
 
     @RequestMapping(value = "/doctor/case/commit", method = RequestMethod.POST)
@@ -48,38 +47,38 @@ public class DoctorController {
     }
 
     @RequestMapping(value = "/doctor/medicalrecord/commit", method = RequestMethod.POST)
-    public String doctorMedicalRecordCommit(@RequestBody MedicalRecord medicalRecord) {
+    public boolean doctorMedicalRecordCommit(@RequestBody MedicalRecord medicalRecord) {
 
-        return "";
+        return doctorService.medicalRecordCommit(medicalRecord);
     }
 
     @RequestMapping(value = "/doctor/perscription/allinfo", method = RequestMethod.GET)
-    public String doctorPerscriptionAllInfo() {
+    public List<Perscription> doctorPerscriptionAllInfo() {
 
-        return "";
+        return doctorService.getAllPrescription();
     }
 
     @RequestMapping(value = "/doctor/perscription/commit", method = RequestMethod.POST)
-    public String doctorPerscriptionCommit(@RequestBody Perscription perscription) {
+    public boolean doctorPerscriptionCommit(@RequestBody Perscription perscription) {
 
-        return "";
+        return doctorService.PrescriptionCommit(perscription);
     }
 
     @RequestMapping(value = "/doctor/registration/allinfo", method = RequestMethod.GET)
-    public String doctorRegistrationAllInfo() {
+    public List<Registration> doctorRegistrationAllInfo() {
 
-        return "";
+        return doctorService.getAllRegistration();
     }
 
     @RequestMapping(value = "/doctor/registration/specificinfo", method = RequestMethod.GET)
-    public String doctorRegistrationSpecificInfo(String doctorID) {
+    public List<Registration> doctorRegistrationSpecificInfo(String doctorID) {
 
-        return "";
+        return doctorService.getRegistrationByDoctorID(doctorID);
     }
 
     @RequestMapping(value = "/doctor/reserve/info", method = RequestMethod.GET)
-    public String reserveInfo(String doctorName, String date, boolean timeRange){
+    public int reserveInfo(String doctorName, String date, boolean timeRange){
 
-        return "";
+        return doctorService.getReserveNumber(doctorName, date, timeRange);
     }
 }

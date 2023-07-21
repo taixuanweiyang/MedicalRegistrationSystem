@@ -23,7 +23,7 @@ public interface PerscriptionMapper {
     public int add(Perscription perscription);
 
     //根据患者身份证号查询数据
-    public Perscription queryById(String patientId);
+    public List<Perscription> queryById(String patientId);
 
     //删除数据
 //    public int delete(Perscription perscription);

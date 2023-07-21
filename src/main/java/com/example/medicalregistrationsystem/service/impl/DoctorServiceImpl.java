@@ -1,10 +1,7 @@
 package com.example.medicalregistrationsystem.service.impl;
 
-import com.example.medicalregistrationsystem.mapper.CaseHistoryMapper;
-import com.example.medicalregistrationsystem.mapper.DoctorMapper;
-import com.example.medicalregistrationsystem.pojo.CaseHistory;
-import com.example.medicalregistrationsystem.pojo.Doctor;
-import com.example.medicalregistrationsystem.pojo.DoctorLogin;
+import com.example.medicalregistrationsystem.mapper.*;
+import com.example.medicalregistrationsystem.pojo.*;
 import com.example.medicalregistrationsystem.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,14 +40,52 @@ public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private CaseHistoryMapper caseHistoryMapper;
     @Override
-    public List<CaseHistory> getCaseAllInfo() {
+    public List<CaseHistory> getAllCase() {
         return caseHistoryMapper.queryAll();
     }
 
     @Override
     public boolean caseCommit(CaseHistory caseHistory) {
+        caseHistoryMapper.add(caseHistory);
+        return true;
+    }
 
-        return false;
+    @Autowired
+    private MedicalRecordMapper medicalRecordMapper;
+    @Override
+    public boolean medicalRecordCommit(MedicalRecord medicalRecord) {
+        medicalRecordMapper.add(medicalRecord);
+        return true;
+    }
+
+    @Autowired
+    private PerscriptionMapper perscriptionMapper;
+    @Override
+    public List<Perscription> getAllPrescription() {
+        return perscriptionMapper.queryAll();
+    }
+
+    @Override
+    public boolean PrescriptionCommit(Perscription perscription) {
+        perscriptionMapper.add(perscription);
+        return true;
+    }
+
+    @Autowired
+    private RegistrationMapper registrationMapper;
+    @Override
+    public List<Registration> getAllRegistration() {
+        return registrationMapper.queryAll();
+    }
+
+    @Override
+    public List<Registration> getRegistrationByDoctorID(String doctorID) {
+        return registrationMapper.queryByDoctorId(doctorID);
+    }
+
+    @Override
+    public int getReserveNumber(String doctorName, String date, boolean timeRange) {
+        return 0;
     }
 
 }

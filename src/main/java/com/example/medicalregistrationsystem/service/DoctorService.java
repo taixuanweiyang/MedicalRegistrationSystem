@@ -1,8 +1,7 @@
 package com.example.medicalregistrationsystem.service;
 
-import com.example.medicalregistrationsystem.pojo.CaseHistory;
-import com.example.medicalregistrationsystem.pojo.Doctor;
-import com.example.medicalregistrationsystem.pojo.DoctorLogin;
+import com.example.medicalregistrationsystem.mapper.PerscriptionMapper;
+import com.example.medicalregistrationsystem.pojo.*;
 
 import java.util.List;
 
@@ -13,7 +12,19 @@ public interface DoctorService {
 
     public boolean doctorSignup(Doctor doctor);
 
-    public List<CaseHistory> getCaseAllInfo();
+    public List<CaseHistory> getAllCase();
 
     public boolean caseCommit(CaseHistory caseHistory);
+
+    public boolean medicalRecordCommit(MedicalRecord medicalRecord);
+
+    public List<Perscription> getAllPrescription();
+
+    public boolean PrescriptionCommit(Perscription perscription);
+
+    public List<Registration> getAllRegistration();
+
+    public List<Registration> getRegistrationByDoctorID(String doctorID);
+
+    public int getReserveNumber(String doctorName, String date, boolean timeRange);
 }
