@@ -25,16 +25,17 @@ public interface RegistrationMapper {
 
     //根据患者身份证号查询数据
     @Select("select * from registration where patientId=#{patientId}")
-    public Registration queryByPatientId(String patientId);
+    public List<Registration> queryByPatientId(String patientId);
 
     //根据医生身份证号查询数据
     @Select("select * from registration where doctorId=#{doctorId}")
-    public Registration queryByDoctorId(String doctorId);
+    public List<Registration> queryByDoctorId(String doctorId);
 
     //使失效/取消挂号信息：
     @Update("update registration set Medical_status=false where Patient_ID=#{patientId} and Doctor_ID=#{doctorId} and ")
     public int CancelOrTimeout(Registration registration);
 
-    //修改gauhao信息
+
+    //修改挂号信息
 //    public int updateInfo(Perscription perscription);
 }

@@ -27,7 +27,7 @@ public interface PerscriptionMapper {
             "select * from perscription where Patient_number in" +
                     "(select Patient_number from registration where Patient_ID=patientid)"
     )
-    public Perscription queryById(String patientId);
+    public List<Perscription> queryById(String patientId);
 
     //删除数据
 //    public int delete(Perscription perscription);
