@@ -77,8 +77,8 @@ public class DoctorController {
     }
 
     @RequestMapping(value = "/doctor/reserve/info", method = RequestMethod.GET)
-    public int reserveInfo(String doctorName, String date, boolean timeRange){
+    public int reserveInfo(String doctorID, String date, boolean timeRange){
 
-        return doctorService.getReserveNumber(doctorName, date, timeRange);
+        return doctorService.getReserveNumber(doctorID, date, timeRange);
     }
 }

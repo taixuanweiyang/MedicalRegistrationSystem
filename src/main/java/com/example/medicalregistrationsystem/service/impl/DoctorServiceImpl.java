@@ -84,8 +84,8 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public int getReserveNumber(String doctorName, String date, boolean timeRange) {
-        return 0;
+    public int getReserveNumber(String doctorID, String date, boolean timeRange) {
+        return registrationMapper.CountRegistration(doctorID, date, timeRange);
     }
 
 }
