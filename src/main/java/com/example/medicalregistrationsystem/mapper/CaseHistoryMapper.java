@@ -17,15 +17,15 @@ public interface CaseHistoryMapper {
 
     //添加病历
     @Insert(
-            "insert into `case_history` (`Patient_number`,`Time`,`Patient_word`,`Deal_advice`,`Medical_result`,`Doctor_ID`)"+
-            "'values (#{patientNumber},#{time},#{patientWord},#{dealAdvice},#{medicalResult},#{doctorId})"
+            "insert into `case_history` (`patientNumber`,`Time`,`patientWord`,`dealAdvice`,`medicalResult`,`doctorId`)"+
+            "values (#{patientNumber},#{time},#{patientWord},#{dealAdvice},#{medicalResult},#{doctorId})"
     )
     public int add(CaseHistory caseHistory);
 
     //根据患者身份证号查询病历
     @Select(
-            "select case_history.* from case_history,registration where registration.Patient_ID=#{patientId}" +
-            "and case_history.Patient_number=registration.Patient_number"
+            "select case_history.* from case_history,registration where registration.patientId=#{patientId}" +
+            "and case_history.patientNumber=registration.patientNumber"
     )
     public CaseHistory queryById(String patientId);
 }

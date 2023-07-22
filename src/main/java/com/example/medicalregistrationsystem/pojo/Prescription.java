@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Perscription {
+public class Prescription {
     private String patientNumber;
     private String time;
     private String content;

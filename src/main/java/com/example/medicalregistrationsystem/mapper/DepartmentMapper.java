@@ -15,18 +15,18 @@ public interface DepartmentMapper {
 
     //添加科室数据
     @Insert(
-            "insert into department (Name,Introduction)"+
-                    "'values (#{name},#{introductio})"
+            "insert into department (name,introduction)"+
+                    "values (#{name},#{introduction})"
     )
     public int add(Department department);
 
     //删除科室
     @Delete(
-            "delete from department where Name=#{name}"
+            "delete from department where name=#{name}"
     )
     public int delete(Department department);
 
     //修改信息
-    @Update("update department set Introduction = #{introduction} wehere Name = #{name}")
+    @Update("update department set introduction = #{introduction} where name = #{name}")
     public int updateInfo(Department department);
 }

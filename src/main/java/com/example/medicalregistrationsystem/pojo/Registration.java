@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Registration {
     private String patientNumber;
-    private String regisTime;
-    private String regisDept;
-    private String reservTime;
+    private String registTime;
+    private String registDept;
+    private String reserveTime;
     private boolean timeRange;
     private int medicalStatus;
     private String doctorId;

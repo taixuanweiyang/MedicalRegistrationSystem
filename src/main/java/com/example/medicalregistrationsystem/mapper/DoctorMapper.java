@@ -18,8 +18,8 @@ public interface DoctorMapper {
     public List<Doctor> queryAll();
     //添加医生数据
     @Insert(
-            "insert into doctors (ID,Password,Name,Age,Dept,Sex,Phone,Fee,Introduction)"+
-                    "'values (#{id},#{password},#{name},#{age},#{dept},#{sex},#{phone},#{fee},#{introductio})"
+            "insert into doctors (id,password,name,age,dept,sex,phone,fee,introduction) " +
+                    "values (#{id},#{password},#{name},#{age},#{dept},#{sex},#{phone},#{fee},#{introduction})"
     )
     public int add(Doctor doctor);
 
@@ -28,18 +28,18 @@ public interface DoctorMapper {
 
     //根据医生手机号查询数据
 
-    @Select("select * from doctors where Phone=#{doctorPhone}")
+    @Select("select * from doctors where phone=#{doctorPhone}")
 
     public Doctor queryByPhone(String doctorPhone);
 
     //根据医生身份证号查询数据
-    @Select("select * from doctors where ID=#{doctorId}")
+    @Select("select * from doctors where id=#{doctorId}")
     public Doctor queryById(String doctorId);
 
     //根据所属科室查询医生信息
-    @Select("select * from doctors where Dept=#{doctorDept}")
-    public Doctor queryByDept(String doctorDept);
+    @Select("select * from doctors where dept=#{doctorDept}")
+    public List<Doctor> queryByDept(String doctorDept);
     //修改医生介绍信息
-    @Update("update doctors set Introduction = #{introduction} wehere ID = #{id}")
-    public int updateInfo(Doctor patient);
+    @Update("update doctors set introduction = #{introduction} where id = #{id}")
+    public int updateInfo(Doctor doctor);
 }

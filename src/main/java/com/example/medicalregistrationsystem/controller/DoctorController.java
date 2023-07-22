@@ -16,8 +16,8 @@ import java.util.List;
 public class DoctorController {
     @Autowired
     private DoctorService doctorService;
-    @RequestMapping(value = "/doctor", method = RequestMethod.GET)
-    public Doctor doctor(String dept){
+    @RequestMapping(value = "/doctors", method = RequestMethod.GET)
+    public List<Doctor> doctor(String dept){
 
         return doctorService.getDoctorByDept(dept);
     }
@@ -52,16 +52,16 @@ public class DoctorController {
         return doctorService.medicalRecordCommit(medicalRecord);
     }
 
-    @RequestMapping(value = "/doctor/perscription/allinfo", method = RequestMethod.GET)
-    public List<Perscription> doctorPerscriptionAllInfo() {
+    @RequestMapping(value = "/doctor/prescription/allinfo", method = RequestMethod.GET)
+    public List<Prescription> doctorPrescriptionAllInfo() {
 
         return doctorService.getAllPrescription();
     }
 
-    @RequestMapping(value = "/doctor/perscription/commit", method = RequestMethod.POST)
-    public boolean doctorPerscriptionCommit(@RequestBody Perscription perscription) {
+    @RequestMapping(value = "/doctor/prescription/commit", method = RequestMethod.POST)
+    public boolean doctorPrescriptionCommit(@RequestBody Prescription prescription) {
 
-        return doctorService.PrescriptionCommit(perscription);
+        return doctorService.PrescriptionCommit(prescription);
     }
 
     @RequestMapping(value = "/doctor/registration/allinfo", method = RequestMethod.GET)
@@ -71,14 +71,10 @@ public class DoctorController {
     }
 
     @RequestMapping(value = "/doctor/registration/specificinfo", method = RequestMethod.GET)
-    public List<Registration> doctorRegistrationSpecificInfo(String doctorID) {
+    public List<Registration> doctorRegistrationSpecificInfo(String doctorId) {
 
-        return doctorService.getRegistrationByDoctorID(doctorID);
+        return doctorService.getRegistrationByDoctorID(doctorId);
     }
 
-    @RequestMapping(value = "/doctor/reserve/info", method = RequestMethod.GET)
-    public int reserveInfo(String doctorID, String date, boolean timeRange){
 
-        return doctorService.getReserveNumber(doctorID, date, timeRange);
-    }
 }

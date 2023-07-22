@@ -12,8 +12,17 @@ import java.util.List;
 public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private DoctorMapper doctorMapper;
+    @Autowired
+    private RegistrationMapper registrationMapper;
+    @Autowired
+    private CaseHistoryMapper caseHistoryMapper;
+    @Autowired
+    private PrescriptionMapper perscriptionMapper;
+    @Autowired
+    private MedicalRecordMapper medicalRecordMapper;
+
     @Override
-    public Doctor getDoctorByDept(String dept) {
+    public List<Doctor> getDoctorByDept(String dept) {
 
         return doctorMapper.queryByDept(dept);
     }
@@ -31,14 +40,21 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public boolean doctorSignup(Doctor doctor) {
+//        System.out.println(doctor.getPhone());
         Doctor doctorInfo = doctorMapper.queryByPhone(doctor.getPhone());
         if (doctorInfo != null) return false;
-        doctorMapper.add(doctor);
+        try {
+            doctorMapper.add(doctor);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+
         return true;
     }
 
-    @Autowired
-    private CaseHistoryMapper caseHistoryMapper;
+
     @Override
     public List<CaseHistory> getAllCase() {
         return caseHistoryMapper.queryAll();
@@ -47,45 +63,52 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public boolean caseCommit(CaseHistory caseHistory) {
         caseHistoryMapper.add(caseHistory);
+        registrationMapper.FinishMedical(caseHistory.getPatientNumber());
         return true;
     }
 
-    @Autowired
-    private MedicalRecordMapper medicalRecordMapper;
+
     @Override
     public boolean medicalRecordCommit(MedicalRecord medicalRecord) {
-        medicalRecordMapper.add(medicalRecord);
+        try {
+            medicalRecordMapper.add(medicalRecord);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+
         return true;
     }
 
-    @Autowired
-    private PerscriptionMapper perscriptionMapper;
+
     @Override
-    public List<Perscription> getAllPrescription() {
+    public List<Prescription> getAllPrescription() {
         return perscriptionMapper.queryAll();
     }
 
     @Override
-    public boolean PrescriptionCommit(Perscription perscription) {
-        perscriptionMapper.add(perscription);
+    public boolean PrescriptionCommit(Prescription prescription) {
+        try {
+            perscriptionMapper.add(prescription);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
         return true;
     }
 
-    @Autowired
-    private RegistrationMapper registrationMapper;
+
     @Override
     public List<Registration> getAllRegistration() {
         return registrationMapper.queryAll();
     }
 
     @Override
-    public List<Registration> getRegistrationByDoctorID(String doctorID) {
-        return registrationMapper.queryByDoctorId(doctorID);
+    public List<Registration> getRegistrationByDoctorID(String doctorId) {
+        return registrationMapper.queryByDoctorId(doctorId);
     }
 
-    @Override
-    public int getReserveNumber(String doctorID, String date, boolean timeRange) {
-        return registrationMapper.CountRegistration(doctorID, date, timeRange);
-    }
 
 }

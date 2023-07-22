@@ -13,11 +13,15 @@ public interface PatientService {
 
     public CaseHistory getPatientCaseInfo(String patientID);
 
-    public List<Perscription> getPatientPrescription(String patientID);
+    public List<Prescription> getPatientPrescription(String patientID);
 
     public List<Registration> getPatientRegistration(String patientID);
 
     public boolean registrationCancel(String patientNumber);
 
     public boolean registrationCommit(Registration registration);
+
+    public int getReserveNumber(String doctorId, String date, boolean timeRange);
+
+    public boolean prescriptionPay(String patientNumber);
 }
