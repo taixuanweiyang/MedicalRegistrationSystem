@@ -27,7 +27,7 @@ public interface DoctorMapper {
     //public int delete(Doctor doctor);
 
     //根据医生手机号查询数据
-    //public Doctor queryByPhone(String doctorPhone);
+    public Doctor queryByPhone(String doctorPhone);
 
     //根据医生身份证号查询数据
     @Select("select * from doctors where ID=#{id}")

@@ -1,62 +1,66 @@
 package com.example.medicalregistrationsystem.controller;
 
-import com.example.medicalregistrationsystem.pojo.Patient;
-import com.example.medicalregistrationsystem.pojo.Registration;
+import com.example.medicalregistrationsystem.mapper.PatientMapper;
+import com.example.medicalregistrationsystem.pojo.*;
+import com.example.medicalregistrationsystem.service.PatientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class PatientController {
+    @Autowired
+    private PatientService patientService;
     @RequestMapping(value = "/patient/login", method = RequestMethod.GET)
-    public String login(String phone, String password) {
+    public PatientLogin login(String phone, String password) {
 
-        return "";
+        return patientService.patientLogin(phone, password);
     }
 
     @RequestMapping(value = "/patient/signup", method = RequestMethod.POST)
     public boolean patientSignup(@RequestBody Patient patient) {
 
-
-        return false;
+        return patientService.patientSignup(patient);
     }
 
     @RequestMapping(value = "/patient/modify", method = RequestMethod.POST)
-    public String patientModify(@RequestBody Patient patient) {
+    public boolean patientModify(@RequestBody Patient patient) {
 
-        return "";
+        return patientService.patientModify(patient);
     }
 
     @RequestMapping(value = "/patient/case/info", method = RequestMethod.GET)
-    public String patientCaseInfo(String patientID) {
+    public CaseHistory patientCaseInfo(String patientID) {
 
-        return "";
+        return patientService.getPatientCaseInfo(patientID);
     }
 
     @RequestMapping(value = "/patient/perscription/info", method = RequestMethod.GET)
-    public String patientPerscriptionInfo(String patientID) {
+    public List<Perscription> patientPerscriptionInfo(String patientID) {
 
-
-        return "";
+        return patientService.getPatientPrescription(patientID);
     }
 
     @RequestMapping(value = "/patient/registration/info", method = RequestMethod.GET)
-    public String patientRegistrationInfo(String patientID) {
+    public List<Registration> patientRegistrationInfo(String patientID) {
 
-        return "";
+        return patientService.getPatientRegistration(patientID);
     }
 
     @RequestMapping(value = "/registration/cancel", method = RequestMethod.GET)
-    public String registrationCancel(String patientNumber) {
+    public boolean registrationCancel(String patientNumber) {
 
-        return "";
+        return patientService.registrationCancel(patientNumber);
     }
 
     @RequestMapping(value = "/registration/commit", method = RequestMethod.POST)
-    public String registrationCommit(@RequestBody Registration registration) {
+    public boolean registrationCommit(@RequestBody Registration registration) {
 
-        return "";
+        return patientService.registrationCommit(registration);
     }
 }
