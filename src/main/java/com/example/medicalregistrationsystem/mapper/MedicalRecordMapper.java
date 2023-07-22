@@ -17,10 +17,10 @@ public interface MedicalRecordMapper {
 
 
     //根据医生身份证号查询数据
-    public MedicalRecord queryByDoctorId(String doctorId);
+    //public MedicalRecord queryByDoctorId(String doctorId);
 
     //根据用户身份证号查询数据
-    public MedicalRecord queryByPatientId(String doctorId);
+    //public MedicalRecord queryByPatientId(String doctorId);
 
     //删除删除诊疗记录
 //    public int delete(MedicalRecord medicalRecord);

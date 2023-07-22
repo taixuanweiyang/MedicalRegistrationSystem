@@ -32,8 +32,8 @@ public interface RegistrationMapper {
     public List<Registration> queryByDoctorId(String doctorId);
 
     //使失效/取消挂号信息：
-    @Update("update registration set Medical_status=false where Patient_ID=#{patientId} and Doctor_ID=#{doctorId} and ")
-    public int CancelOrTimeout(Registration registration);
+    @Update("update registration set Medical_status=false where Patient_number=#{patientNumber} ")
+    public int CancelOrTimeout(String patientNumber);
 
 
     //修改挂号信息

@@ -25,7 +25,7 @@ public interface PerscriptionMapper {
     //根据患者身份证号查询数据
     @Select(
             "select * from perscription where Patient_number in" +
-                    "(select Patient_number from registration where Patient_ID=patientid)"
+                    "(select Patient_number from registration where Patient_ID=#{patientId})"
     )
     public List<Perscription> queryById(String patientId);
 
