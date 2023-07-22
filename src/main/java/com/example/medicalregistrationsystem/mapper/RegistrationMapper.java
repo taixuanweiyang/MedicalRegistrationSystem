@@ -35,7 +35,9 @@ public interface RegistrationMapper {
     @Update("update registration set Medical_status=false where Patient_number=#{patientNumber} ")
     public int CancelOrTimeout(String patientNumber);
 
-
+    //统计预约挂号数量
+    @Select("select count(*) from registration where Doctor_ID=#{doctorId} and Date=#{data} and Time_range=#{timeRange}")
+    public int CountRegistration(String doctorId,String data,boolean timeRange);
     //修改挂号信息
 //    public int updateInfo(Perscription perscription);
 }
