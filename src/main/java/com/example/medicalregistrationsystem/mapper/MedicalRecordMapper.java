@@ -1,6 +1,7 @@
 package com.example.medicalregistrationsystem.mapper;
 
 import com.example.medicalregistrationsystem.pojo.MedicalRecord;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,9 @@ public interface MedicalRecordMapper {
     public List<MedicalRecord> queryAll();
 
     //添加诊疗记录
+    @Insert(
+            "insert into medical_record values(#{patientId}, #{doctorId}, #{time})"
+    )
     public int add(MedicalRecord medicalRecord);
 
 

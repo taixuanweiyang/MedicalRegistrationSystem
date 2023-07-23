@@ -76,5 +76,9 @@ public class DoctorController {
         return doctorService.getRegistrationByDoctorID(doctorId);
     }
 
+    @RequestMapping(value = "/doctor/reserve/info", method = RequestMethod.GET)
+    public int reserveInfo(String doctorId, String date, boolean timeRange){
 
+        return doctorService.getReserveNumber(doctorId, date, timeRange);
+    }
 }

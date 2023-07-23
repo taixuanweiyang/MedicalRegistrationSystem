@@ -47,7 +47,6 @@ public class DoctorServiceImpl implements DoctorService {
             doctorMapper.add(doctor);
         }
         catch (Exception e) {
-            System.out.println(e);
             return false;
         }
 
@@ -70,11 +69,11 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public boolean medicalRecordCommit(MedicalRecord medicalRecord) {
+//        System.out.println(medicalRecord);
         try {
             medicalRecordMapper.add(medicalRecord);
         }
         catch (Exception e) {
-            System.out.println(e);
             return false;
         }
 
@@ -93,7 +92,6 @@ public class DoctorServiceImpl implements DoctorService {
             perscriptionMapper.add(prescription);
         }
         catch (Exception e) {
-            System.out.println(e);
             return false;
         }
         return true;
@@ -110,5 +108,9 @@ public class DoctorServiceImpl implements DoctorService {
         return registrationMapper.queryByDoctorId(doctorId);
     }
 
-
+    @Override
+    public int getReserveNumber(String doctorId, String date, boolean timeRange) {
+//        System.out.println(doctorId + date + timeRange);
+        return registrationMapper.CountRegistration(doctorId, date, timeRange);
+    }
 }

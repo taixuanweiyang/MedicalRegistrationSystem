@@ -25,4 +25,5 @@ public interface DoctorService {
 
     public List<Registration> getRegistrationByDoctorID(String doctorID);
 
+    public int getReserveNumber(String doctorId, String date, boolean timeRange);
 }

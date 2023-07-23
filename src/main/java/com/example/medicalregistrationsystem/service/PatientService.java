@@ -11,7 +11,7 @@ public interface PatientService {
 
     public boolean patientModify(Patient patient);
 
-    public CaseHistory getPatientCaseInfo(String patientID);
+    public List<CaseHistory> getPatientCaseInfo(String patientID);
 
     public List<Prescription> getPatientPrescription(String patientID);
 
@@ -21,7 +21,7 @@ public interface PatientService {
 
     public boolean registrationCommit(Registration registration);
 
-    public int getReserveNumber(String doctorId, String date, boolean timeRange);
+
 
     public boolean prescriptionPay(String patientNumber);
 }

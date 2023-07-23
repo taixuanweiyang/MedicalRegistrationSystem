@@ -1,9 +1,6 @@
 package com.example.medicalregistrationsystem.service.impl;
 
-import com.example.medicalregistrationsystem.mapper.CaseHistoryMapper;
-import com.example.medicalregistrationsystem.mapper.PatientMapper;
-import com.example.medicalregistrationsystem.mapper.PrescriptionMapper;
-import com.example.medicalregistrationsystem.mapper.RegistrationMapper;
+import com.example.medicalregistrationsystem.mapper.*;
 import com.example.medicalregistrationsystem.pojo.*;
 import com.example.medicalregistrationsystem.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +14,15 @@ public class PatientServiceImpl implements PatientService {
     private PatientMapper patientMapper;
     @Autowired
     private PrescriptionMapper prescriptionMapper;
+    @Autowired
+    private CaseHistoryMapper caseHistoryMapper;
+    @Autowired
+    private PrescriptionMapper perscriptionMapper;
+    @Autowired
+    private RegistrationMapper registrationMapper;
+    @Autowired
+    private DoctorMapper doctorMapper;
+
     @Override
     public PatientLogin patientLogin(String phone, String password) {
         Patient patient = patientMapper.queryByPhone(phone);
@@ -31,7 +37,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public boolean patientSignup(Patient patient) {
-        System.out.println(patient.getPhone());
+//        System.out.println(patient.getPhone());
         Patient PatientInfo = patientMapper.queryByPhone(patient.getPhone());
 
         if (PatientInfo != null) return false;
@@ -46,28 +52,24 @@ public class PatientServiceImpl implements PatientService {
             row = patientMapper.updateInfo(patient);
         }
         catch (Exception e) {
-            System.out.println(e);
             return false;
         }
         return row == 1;
     }
 
-    @Autowired
-    private CaseHistoryMapper caseHistoryMapper;
+
     @Override
-    public CaseHistory getPatientCaseInfo(String patientID) {
+    public List<CaseHistory> getPatientCaseInfo(String patientID) {
         return caseHistoryMapper.queryById(patientID);
     }
 
-    @Autowired
-    private PrescriptionMapper perscriptionMapper;
+
     @Override
     public List<Prescription> getPatientPrescription(String patientID) {
         return perscriptionMapper.queryById(patientID);
     }
 
-    @Autowired
-    private RegistrationMapper registrationMapper;
+
     @Override
     public List<Registration> getPatientRegistration(String patientId) {
         return registrationMapper.queryByPatientId(patientId);
@@ -80,7 +82,6 @@ public class PatientServiceImpl implements PatientService {
             row = registrationMapper.CancelOrTimeout(patientNumber);
         }
         catch (Exception e) {
-            System.out.println(e);
             return false;
         }
         return row == 1;
@@ -90,20 +91,19 @@ public class PatientServiceImpl implements PatientService {
     public boolean registrationCommit(Registration registration) {
 //        registrationMapper.add(registration);
         try {
+            String dept = doctorMapper.queryDeptById(registration.getDoctorId());
+            if(!dept.equals(registration.getRegistDept())) {
+                return false;
+            }
             registrationMapper.add(registration);
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
             return false;
         }
         return true;
     }
 
-    @Override
-    public int getReserveNumber(String doctorId, String date, boolean timeRange) {
-//        System.out.println(doctorId + date + timeRange);
-        return registrationMapper.CountRegistration(doctorId, date, timeRange);
-    }
+
 
     @Override
     public boolean prescriptionPay(String patientNumber) {

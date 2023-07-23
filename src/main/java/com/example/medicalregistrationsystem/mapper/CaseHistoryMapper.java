@@ -27,5 +27,5 @@ public interface CaseHistoryMapper {
             "select case_history.* from case_history,registration where registration.patientId=#{patientId}" +
             "and case_history.patientNumber=registration.patientNumber"
     )
-    public CaseHistory queryById(String patientId);
+    public List<CaseHistory> queryById(String patientId);
 }

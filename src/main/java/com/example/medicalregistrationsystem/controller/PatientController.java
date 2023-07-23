@@ -24,7 +24,7 @@ public class PatientController {
 
     @RequestMapping(value = "/patient/signup", method = RequestMethod.POST)
     public boolean patientSignup(@RequestBody Patient patient) {
-        System.out.println(patient);
+//        System.out.println(patient);
         return patientService.patientSignup(patient);
     }
 
@@ -35,12 +35,12 @@ public class PatientController {
     }
 
     @RequestMapping(value = "/patient/case/info", method = RequestMethod.GET)
-    public CaseHistory patientCaseInfo(String patientId) {
+    public List<CaseHistory> patientCaseInfo(String patientId) {
 
         return patientService.getPatientCaseInfo(patientId);
     }
 
-    @RequestMapping(value = "/patient/Prescription/info", method = RequestMethod.GET)
+    @RequestMapping(value = "/patient/prescription/info", method = RequestMethod.GET)
     public List<Prescription> patientPrescriptionInfo(String patientId) {
 
         return patientService.getPatientPrescription(patientId);
@@ -64,9 +64,8 @@ public class PatientController {
         return patientService.registrationCommit(registration);
     }
 
-    @RequestMapping(value = "/doctor/reserve/info", method = RequestMethod.GET)
-    public int reserveInfo(String doctorId, String date, boolean timeRange){
-
-        return patientService.getReserveNumber(doctorId, date, timeRange);
+    @RequestMapping(value = "patient/prescription/pay", method = RequestMethod.GET)
+    public boolean prescriptionPay(String patientNumber) {
+        return patientService.prescriptionPay(patientNumber);
     }
 }
