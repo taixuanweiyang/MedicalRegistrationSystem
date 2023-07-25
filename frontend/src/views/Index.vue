@@ -10,13 +10,16 @@
                   <el-input v-model="loginForm.password" type="password" placeholder="请输入"/>
                 </el-form-item>
               </el-form>
+              <div id="center">
               <el-radio-group v-model="identity" class="ml-4">
                 <el-radio label="patient" size="large">用户</el-radio>
                 <el-radio label="doctor" size="large">医生</el-radio>
               </el-radio-group>
-              <div></div>
+              </div>
+              <div id="center">
               <el-button type="primary" :loading="loginLoading" @click="onLogin">登录</el-button>
               <el-button @click="$router.push('/register')">注册</el-button>
+              </div>
             </el-main>
           </el-container>
         </el-card>
@@ -24,13 +27,19 @@
 
 <style scoped>
 .box-card {
-  margin-left:33%;
-  margin-top:15%;
+  margin-left:35%;
+  margin-top:12%;
   width: 450px;
+  height: 300px;
 }
 .el-input{
   margin-top:5px;
   margin-bottom:5px;
+}
+#center{
+  margin: auto;
+  margin-left: 30%;
+  margin-top: 20px;
 }
 </style>
 

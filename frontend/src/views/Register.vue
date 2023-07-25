@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <el-form ref="registerForm" :model="registerForm" :rules="myrules" label-width="100px">
-      <el-radio-group v-model="identity">
+      <el-radio-group v-model="identity" style="margin-left: 40px">
         <el-radio label="patient" size="large">用户</el-radio>
         <el-radio label="doctor" size="large">医生</el-radio>
       </el-radio-group>
@@ -42,8 +42,10 @@
       <el-form-item v-if="identity=='doctor'" label="个人介绍：" prop="introduction">
         <el-input v-model="registerForm.introduction" placeholder="个人介绍（可选）" />
       </el-form-item>
+      <div id="center">
       <el-button type="primary" :loading="loginLoading" @click="onRegister">完成</el-button>
       <el-button @click="$router.push('/')">取消</el-button>
+      </div>
     </el-form>
     <el-dialog
     v-model="dialogVisible"
@@ -65,13 +67,18 @@
 
 <style scoped>
 .box-card {
-  margin-left:35%;
-  margin-top:5%;
+  margin-left:38%;
+  margin-top:8%;
   width: 450px;
+  /* height: 300px; */
 }
 .el-input{
   margin-top:5px;
   margin-bottom:5px;
+}
+#center{
+  margin: auto;
+  margin-left: 10%;
 }
 </style>
 
