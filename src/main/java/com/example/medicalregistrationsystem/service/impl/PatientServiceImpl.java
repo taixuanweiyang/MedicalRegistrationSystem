@@ -17,8 +17,6 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private CaseHistoryMapper caseHistoryMapper;
     @Autowired
-    private PrescriptionMapper perscriptionMapper;
-    @Autowired
     private RegistrationMapper registrationMapper;
     @Autowired
     private DoctorMapper doctorMapper;
@@ -66,7 +64,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public List<Prescription> getPatientPrescription(String patientID) {
-        return perscriptionMapper.queryById(patientID);
+        return prescriptionMapper.queryById(patientID);
     }
 
 
@@ -95,6 +93,12 @@ public class PatientServiceImpl implements PatientService {
             if(!dept.equals(registration.getRegistDept())) {
                 return false;
             }
+            int count = registrationMapper.CountPatientRegistration(registration);
+            System.out.println(count);
+            if(count > 0) {
+                return false;
+            }
+
             registrationMapper.add(registration);
         }
         catch (Exception e) {
@@ -103,7 +107,12 @@ public class PatientServiceImpl implements PatientService {
         return true;
     }
 
-
+    @Override
+    public Patient getPatientById(String patientId) {
+        Patient result = patientMapper.queryById(patientId);
+        System.out.println(result);
+        return result;
+    }
 
     @Override
     public boolean prescriptionPay(String patientNumber) {

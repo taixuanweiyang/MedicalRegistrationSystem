@@ -81,4 +81,9 @@ public class DoctorController {
 
         return doctorService.getReserveNumber(doctorId, date, timeRange);
     }
+
+    @RequestMapping(value = "/specific/doctor/info/", method = RequestMethod.GET)
+    public Doctor specificDoctorInfo(String doctorId) {
+        return doctorService.getDoctorById(doctorId);
+    }
 }

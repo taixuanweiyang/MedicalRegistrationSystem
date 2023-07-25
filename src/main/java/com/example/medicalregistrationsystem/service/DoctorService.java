@@ -2,6 +2,7 @@ package com.example.medicalregistrationsystem.service;
 
 import com.example.medicalregistrationsystem.pojo.*;
 
+import javax.print.Doc;
 import java.util.List;
 
 public interface DoctorService {
@@ -26,4 +27,6 @@ public interface DoctorService {
     public List<Registration> getRegistrationByDoctorID(String doctorID);
 
     public int getReserveNumber(String doctorId, String date, boolean timeRange);
+
+    public Doctor getDoctorById(String doctorId);
 }

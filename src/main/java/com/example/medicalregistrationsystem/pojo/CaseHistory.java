@@ -13,4 +13,5 @@ public class CaseHistory {
     private String dealAdvice;
     private String medicalResult;
     private String doctorId;
+    private String patientId;
 }

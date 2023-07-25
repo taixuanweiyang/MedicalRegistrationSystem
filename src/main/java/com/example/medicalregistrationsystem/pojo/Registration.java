@@ -14,6 +14,7 @@ public class Registration {
     private boolean timeRange;
     private int medicalStatus;
     private String doctorId;
+    private String doctorName;
     private String patientId;
-
+    private String patientName;
 }

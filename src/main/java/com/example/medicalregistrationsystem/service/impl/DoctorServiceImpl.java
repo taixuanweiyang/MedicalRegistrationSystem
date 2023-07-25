@@ -6,6 +6,7 @@ import com.example.medicalregistrationsystem.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Period;
 import java.util.List;
 
 @Service
@@ -17,9 +18,11 @@ public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private CaseHistoryMapper caseHistoryMapper;
     @Autowired
-    private PrescriptionMapper perscriptionMapper;
+    private PrescriptionMapper prescriptionMapper;
     @Autowired
     private MedicalRecordMapper medicalRecordMapper;
+    @Autowired
+    private PatientMapper patientMapper;
 
     @Override
     public List<Doctor> getDoctorByDept(String dept) {
@@ -56,21 +59,34 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<CaseHistory> getAllCase() {
-        return caseHistoryMapper.queryAll();
+        List<CaseHistory> result = caseHistoryMapper.queryAll();
+        for(CaseHistory caseHistory : result) {
+            String patientId = registrationMapper.QueryPatientIdByPatientNumber(caseHistory.getPatientNumber());
+            caseHistory.setPatientId(patientId);
+        }
+        return result;
     }
 
     @Override
     public boolean caseCommit(CaseHistory caseHistory) {
         caseHistoryMapper.add(caseHistory);
-        registrationMapper.FinishMedical(caseHistory.getPatientNumber());
-        return true;
+        int status = registrationMapper.FinishMedical(caseHistory.getPatientNumber());
+
+        return status == 1;
     }
 
 
     @Override
     public boolean medicalRecordCommit(MedicalRecord medicalRecord) {
 //        System.out.println(medicalRecord);
+        String time = medicalRecord.getTime();
+        String day = time.substring(0, 10);
+        int hour = Integer.parseInt(time.substring(11, 13));
+
         try {
+            if(registrationMapper.CheckRegistrationTime(medicalRecord, day, hour >= 12) == 0) {
+                return false;
+            }
             medicalRecordMapper.add(medicalRecord);
         }
         catch (Exception e) {
@@ -83,13 +99,19 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<Prescription> getAllPrescription() {
-        return perscriptionMapper.queryAll();
+        List<Prescription> result = prescriptionMapper.queryAll();
+        for(Prescription prescription : result) {
+            String patientId = registrationMapper.QueryPatientIdByPatientNumber(prescription.getPatientNumber());
+            prescription.setPatientId(patientId);
+        }
+
+        return result;
     }
 
     @Override
     public boolean PrescriptionCommit(Prescription prescription) {
         try {
-            perscriptionMapper.add(prescription);
+            prescriptionMapper.add(prescription);
         }
         catch (Exception e) {
             return false;
@@ -100,17 +122,34 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<Registration> getAllRegistration() {
-        return registrationMapper.queryAll();
+        List<Registration> result = registrationMapper.queryAll();
+
+        for (Registration registration : result) {
+            registration.setDoctorName(doctorMapper.queryNameById(registration.getDoctorId()));
+            registration.setPatientName(patientMapper.queryNameById(registration.getPatientId()));
+        }
+//        System.out.println(result);
+        return result;
     }
 
     @Override
     public List<Registration> getRegistrationByDoctorID(String doctorId) {
-        return registrationMapper.queryByDoctorId(doctorId);
+        List<Registration> result = registrationMapper.queryByDoctorId(doctorId);
+        for (Registration registration : result) {
+            registration.setDoctorName(doctorMapper.queryNameById(registration.getDoctorId()));
+            registration.setPatientName(patientMapper.queryNameById(registration.getPatientId()));
+        }
+        return result;
     }
 
     @Override
     public int getReserveNumber(String doctorId, String date, boolean timeRange) {
 //        System.out.println(doctorId + date + timeRange);
         return registrationMapper.CountRegistration(doctorId, date, timeRange);
+    }
+
+    @Override
+    public Doctor getDoctorById(String doctorId) {
+        return doctorMapper.queryById(doctorId);
     }
 }

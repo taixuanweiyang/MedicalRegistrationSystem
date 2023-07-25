@@ -21,7 +21,7 @@ public interface PatientService {
 
     public boolean registrationCommit(Registration registration);
 
-
+    public Patient getPatientById(String patientId);
 
     public boolean prescriptionPay(String patientNumber);
 }

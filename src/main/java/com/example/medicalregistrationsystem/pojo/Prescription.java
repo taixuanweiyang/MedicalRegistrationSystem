@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Prescription {
     private String patientNumber;
-    private String time;
     private String content;
+    private String time;
     private boolean feeStatus;
     private String doctorId;
+    private String patientId;
 }

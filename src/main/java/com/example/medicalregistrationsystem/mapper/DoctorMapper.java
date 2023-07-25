@@ -40,9 +40,13 @@ public interface DoctorMapper {
     @Select("select * from doctors where dept=#{doctorDept}")
     public List<Doctor> queryByDept(String doctorDept);
 
-    //根据所属科室查询医生信息
+    //根据身份证号查询所在科室
     @Select("select dept from doctors where id=#{doctorId}")
     public String queryDeptById(String doctorId);
+
+    //根据身份证号查询医生名称
+    @Select("select name from doctors where id=#{doctorId}")
+    public String queryNameById(String doctorId);
 
     //修改医生介绍信息
     @Update("update doctors set introduction = #{introduction} where id = #{id}")

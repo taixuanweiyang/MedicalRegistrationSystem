@@ -17,7 +17,7 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
     @RequestMapping(value = "/patient/login", method = RequestMethod.GET)
-    public PatientLogin login(String phone, String password) {
+    public PatientLogin patientLogin(String phone, String password) {
 
         return patientService.patientLogin(phone, password);
     }
@@ -67,5 +67,10 @@ public class PatientController {
     @RequestMapping(value = "patient/prescription/pay", method = RequestMethod.GET)
     public boolean prescriptionPay(String patientNumber) {
         return patientService.prescriptionPay(patientNumber);
+    }
+
+    @RequestMapping(value = "/specific/patient/info/", method = RequestMethod.GET)
+    public Patient specificDoctorInfo(String patientId) {
+        return patientService.getPatientById(patientId);
     }
 }
