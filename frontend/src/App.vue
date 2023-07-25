@@ -1,27 +1,28 @@
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-  <TestCarousel/>
+  <RouterView />
 </template>
 
-<script>
-// import HelloWorld from './components/HelloWorld.vue'
-import TestCarousel from './components/TestCarousel.vue'
-export default {
-  name: 'App',
-  components: {
-    // HelloWorld,
-    TestCarousel
-  }
-}
+<script setup>
+import { RouterView } from 'vue-router';
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+:root:root {
+  --el-color-primary: #3491FA;
+  --el-color-primary-light-3: #9FD4FD;
+  --el-color-primary-light-5: #57A9FB;
+  --el-color-primary-light-7: #7BC0FC;
+  --el-color-primary-light-8: #C3E7FE;
+  --el-color-primary-light-9: #E8F7FF;
+  --el-color-primary-dark-2: #063078;
 }
+#app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 </style>
+
