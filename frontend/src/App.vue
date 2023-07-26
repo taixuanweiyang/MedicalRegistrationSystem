@@ -1,4 +1,24 @@
 <template>
+  <div id="nav">
+    <vue-particles
+      color="#555"
+      :particleOpacity="2"
+      :particlesNumber="150"
+      shapeType="circle"
+      :particleSize="4"
+      linesColor="#555"
+      :linesWidth="1"
+      :lineLinked="true"
+      :lineOpacity="0.4"
+      :linesDistance="150"
+      :moveSpeed="2"
+      :hoverEffect="true"
+      hoverMode="grab"
+      :clickEffect="false"
+      clickMode="push"
+      class="lizi"
+    />
+  </div>
   <RouterView />
 </template>
 
@@ -6,7 +26,7 @@
 import { RouterView } from 'vue-router';
 </script>
 
-<style>
+<style >
 :root:root {
   --el-color-primary: #3491FA;
   --el-color-primary-light-3: #9FD4FD;
@@ -22,6 +42,11 @@ import { RouterView } from 'vue-router';
   left: 0;
   width: 100%;
   height: 100%;
+}
+.lizi{
+  position:absolute;
+  top:0;
+  width:100%;
 }
 
 </style>

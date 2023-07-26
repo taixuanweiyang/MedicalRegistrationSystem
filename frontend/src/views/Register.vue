@@ -71,6 +71,7 @@
   margin-top:8%;
   width: 450px;
   /* height: 300px; */
+  position: absolute;
 }
 .el-input{
   margin-top:5px;
@@ -165,9 +166,6 @@ export default {
         fee:[
             { required: true, message: '挂号费不能为空！', trigger: 'change' },
           ], 
-        introduction:[
-            { required: true, message: '个人介绍不能为空！', trigger: 'change' },
-          ], 
         }
       }
   },
@@ -189,18 +187,22 @@ export default {
         name: this.registerForm.name,
         sex: this.registerForm.sex === '1',
         age: parseInt(this.registerForm.age),
+        fee: 0.0,
+        dept: '',
+        introduction: '',
       };
       if (this.identity === 'patient') {
         apiUrl = 'http://8.130.117.156:8080/his/patient/signup';
       } else if (this.identity === 'doctor') {
         apiUrl = 'http://8.130.117.156:8080/his/doctor/signup';
-        postData.fee = parseFloat(this.fee);
-        postData.dept = this.dept,
-        postData.introduction = this.introduction;
+        postData.fee = parseFloat(this.registerForm.fee);
+        postData.dept = this.registerForm.dept,
+        postData.introduction = this.registerForm.introduction;
       } else {
         ElMessage.error('出错！');
         return;
       }
+      console.log(postData);
       this.loginLoading = true;
       axios.post(apiUrl, postData)
         .then(res => {

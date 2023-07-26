@@ -97,10 +97,11 @@ export default {
       }
     },
     handleStartTreatment(row) {
+      
       const postData = {
         patientId: row.patientId,
         doctorId: row.doctorId,
-        time: this.$moment(new Date()).format('YYYY-MM-DD hh:mm:ss'),
+        time: this.$moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       };
       axios
         .post("http://8.130.117.156:8080/his/doctor/medicalrecord/commit", postData)

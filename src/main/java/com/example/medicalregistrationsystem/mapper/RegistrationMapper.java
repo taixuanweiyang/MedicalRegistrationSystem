@@ -58,9 +58,9 @@ public interface RegistrationMapper {
     @Select("select count(*) from registration where patientId = #{patientId} and doctorId=#{doctorId} and medicalStatus = 0")
     public int CountPatientRegistration(Registration registration);
 
-    @Select("select count(*) from registration where patientId = #{patientId} and doctorId=#{doctorId} and medicalStatus = 0" +
+    @Select("select count(*) from registration where patientId = #{patientId} and doctorId=#{doctorId} and medicalStatus = 0 " +
             "and reserveTime = #{reserveTime} and timeRange = #{timeRange}")
-    public int CheckRegistrationTime(MedicalRecord medicalRecord, String reserveTime, boolean timeRange);
+    public int CheckRegistrationTime(String doctorId,  String patientId, String reserveTime, boolean timeRange);
 
     @Select("select patientId from registration where patientNumber = #{patientNumber}")
     public String QueryPatientIdByPatientNumber(String patientNumber);

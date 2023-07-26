@@ -3,6 +3,7 @@ package com.example.medicalregistrationsystem.service.impl;
 import com.example.medicalregistrationsystem.mapper.*;
 import com.example.medicalregistrationsystem.pojo.*;
 import com.example.medicalregistrationsystem.service.DoctorService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public DoctorLogin doctorLogin(String phone, String password) {
+        password = DigestUtils.md2Hex(password);
         Doctor doctor = doctorMapper.queryByPhone(phone);
         DoctorLogin doctorLogin = new DoctorLogin();
         doctorLogin.setDoctor(doctorMapper.queryByPhone(phone));
@@ -44,6 +46,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public boolean doctorSignup(Doctor doctor) {
 //        System.out.println(doctor.getPhone());
+        doctor.setPassword(DigestUtils.md2Hex(doctor.getPassword()));
         Doctor doctorInfo = doctorMapper.queryByPhone(doctor.getPhone());
         if (doctorInfo != null) return false;
         try {
@@ -84,7 +87,8 @@ public class DoctorServiceImpl implements DoctorService {
         int hour = Integer.parseInt(time.substring(11, 13));
 
         try {
-            if(registrationMapper.CheckRegistrationTime(medicalRecord, day, hour >= 12) == 0) {
+            if(registrationMapper.CheckRegistrationTime(medicalRecord.getDoctorId(), medicalRecord.getPatientId(), day, hour >= 12) == 0) {
+                System.out.println("no registration");
                 return false;
             }
             medicalRecordMapper.add(medicalRecord);

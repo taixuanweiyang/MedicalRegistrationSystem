@@ -3,6 +3,7 @@ package com.example.medicalregistrationsystem.service.impl;
 import com.example.medicalregistrationsystem.mapper.*;
 import com.example.medicalregistrationsystem.pojo.*;
 import com.example.medicalregistrationsystem.service.PatientService;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientLogin patientLogin(String phone, String password) {
+        password = DigestUtils.md2Hex(password);
         Patient patient = patientMapper.queryByPhone(phone);
         PatientLogin patientLogin = new PatientLogin();
         patientLogin.setPatient(patientMapper.queryByPhone(phone));
@@ -36,6 +38,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public boolean patientSignup(Patient patient) {
 //        System.out.println(patient.getPhone());
+        patient.setPassword(DigestUtils.md2Hex(patient.getPassword()));
         Patient PatientInfo = patientMapper.queryByPhone(patient.getPhone());
 
         if (PatientInfo != null) return false;

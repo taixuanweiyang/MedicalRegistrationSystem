@@ -31,6 +31,7 @@
   margin-top:12%;
   width: 450px;
   height: 300px;
+  position: absolute;
 }
 .el-input{
   margin-top:5px;

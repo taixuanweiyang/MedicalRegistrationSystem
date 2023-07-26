@@ -5,7 +5,7 @@ import App from './App.vue'
 import router from './router';
 import ElementPlus from 'element-plus'
 import moment from 'moment'
-
+import VueParticles from 'vue-particles'
 
 import 'element-plus/dist/index.css'
 
@@ -25,8 +25,9 @@ const app=createApp(App);
 app.use(router);
 app.use(store);
 app.use(ElementPlus);
+app.use(VueParticles)
 app.config.globalProperties.$moment=moment;
-
+app.config.productionTip = false
 app.mount('#app')
 
 // 在此处进行配置全局的路由守卫（全局前置钩子）
