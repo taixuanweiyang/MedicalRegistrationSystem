@@ -92,10 +92,10 @@ public class PatientServiceImpl implements PatientService {
     public boolean registrationCommit(Registration registration) {
 //        registrationMapper.add(registration);
         try {
-            String dept = doctorMapper.queryDeptById(registration.getDoctorId());
-            if(!dept.equals(registration.getRegistDept())) {
-                return false;
-            }
+//            String dept = doctorMapper.queryDeptById(registration.getDoctorId());
+//            if(!dept.equals(registration.getRegistDept())) {
+//                return false;
+//            }
             int count = registrationMapper.CountPatientRegistration(registration);
             System.out.println(count);
             if(count > 0) {

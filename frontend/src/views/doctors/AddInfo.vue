@@ -69,7 +69,7 @@ export default {
     return {
       value1: false,
       dialogVisible: false,
-      time: this.$moment(new Date()).format('YYYY-MM-DD hh:mm:ss'), 
+      time: this.$moment(new Date()).format('YYYY-MM-DD HH:mm:ss'), 
       patientId: this.$store.state.registration.patientId,
       doctorId: this.$store.state.registration.doctorId,
       patientWord: "",

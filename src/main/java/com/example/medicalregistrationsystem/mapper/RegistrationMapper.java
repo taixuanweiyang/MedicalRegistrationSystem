@@ -52,10 +52,10 @@ public interface RegistrationMapper {
     public int FinishMedical(String patientNumber);
 
     //统计预约挂号数量
-    @Select("select count(*) from registration where doctorId=#{doctorId} and reserveTime=#{data} and timeRange=#{timeRange}")
-    public int CountRegistration(String doctorId,String data,boolean timeRange);
+    @Select("select count(*) from registration where doctorId=#{doctorId} and reserveTime=#{data} and timeRange=#{timeRange} and medicalStatus = 0")
+    public int CountRegistration(String doctorId, String data, boolean timeRange);
 
-    @Select("select count(*) from registration where patientId = #{patientId} and doctorId=#{doctorId} and medicalStatus = 0")
+    @Select("select count(*) from registration where patientId = #{patientId}  and medicalStatus = 0 and registDept = #{registDept}")
     public int CountPatientRegistration(Registration registration);
 
     @Select("select count(*) from registration where patientId = #{patientId} and doctorId=#{doctorId} and medicalStatus = 0 " +

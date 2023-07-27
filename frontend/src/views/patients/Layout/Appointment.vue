@@ -23,12 +23,10 @@
             :size="large"
           />
           <el-button type="primary" v-if="doctor.value==true" class="picker" @click="timeRange=false">
-            <div>上午</div><br />
-            <div>{{ reserveCount }}/10</div>
+            <div>上午</div>
           </el-button>
           <el-button type="primary" v-if="doctor.value==true" class="picker" @click="timeRange=true">
-            <div>下午</div><br />
-            <div>{{ reserveCount }}/10</div>
+            <div>下午</div>
           </el-button>
           <el-button type="primary" v-if="doctor.value==true"  class="picker2" @click="reserveAppointment">确定预约并支付</el-button>
         </el-card>
@@ -54,9 +52,9 @@
 
 <style scoped>
 .box-card{
-  margin-top:5%;
+  margin-top:2%;
   margin-right:10px;
-  height:400px;
+  height:420px;
   width:300px;
   background-color:#E8F7FF;
 }
@@ -65,7 +63,7 @@
   margin-bottom:10px;
 }
 .picker2{
-  margin-left:10px;
+  margin-left:0px;
 }
 </style>
 
@@ -78,14 +76,13 @@ export default {
       doctors: [], 
       value:false,
       timeRange: false,
-      reserveCount: 0,
       idx: -1,
       dialogVisible:false,
     };
   },
   created() {
     this.fetchDoctorInfo();
-    this.fetchReserveCount();
+    // this.fetchReserveCount();
   },
   methods: {
     fetchDoctorInfo() {
@@ -102,52 +99,68 @@ export default {
           console.error("Failed to fetch doctor info: ", error);
         });
     },
-    fetchReserveCount() {
+    // fetchReserveCount() {
+    //   axios
+    //     .get("http://8.130.117.156:8080/his/doctor/reserve/info", {
+    //       params: {
+    //         doctorId: this.doctors.id,
+    //         date: this.doctors.reserveDate,
+    //         timeRange: this.doctors.timeRange,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       this.reserveCount = res.data;
+    //     })
+    //     .catch((error) => {
+    //       console.error("Failed to fetch reserve count: ", error);
+    //     });
+    // },
+    reserveAppointment() {
+      let reserveCount = 0;
+      const selectedDoctor = this.doctors.find((doctor) => doctor.value === true);
+      const param = {
+        doctorId: selectedDoctor.id,
+        date: this.$moment(selectedDoctor.reserveDate).format('YYYY-MM-DD'),
+        timeRange: this.$data.timeRange,
+      };
       axios
         .get("http://8.130.117.156:8080/his/doctor/reserve/info", {
-          params: {
-            doctorId: this.doctors.id,
-            date: this.doctors.reserveDate,
-            timeRange: this.doctors.timeRange,
-          },
-        })
+          params: param,
+        })  
         .then((res) => {
-          this.reserveCount = res.data;
+          reserveCount = res.data;
+          console.log("reserveCount : " + reserveCount);
+          if (selectedDoctor && reserveCount < 5) {
+          const requestData = {
+            registTime:this.$moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+            reserveTime: this.$moment(selectedDoctor.reserveDate).format('YYYY-MM-DD'),
+            timeRange: this.timeRange,
+            registDept: this.$store.state.dept,
+            doctorId: this.doctors[this.$data.idx].id,
+            patientId: this.$store.state.pInfo.id,
+            medicalStatus: 0,
+          };
+          console.log(requestData);
+
+          axios
+            .post("http://8.130.117.156:8080/his/registration/commit", requestData)
+            .then((res) => {
+              if (res.data) {
+                this.dialogVisible = true;
+              } else {
+                ElMessage.error("无法预约");
+              }
+            })
+            .catch((error) => {
+              console.error("预约失败: ", error);
+            });
+        } else {
+          console.log("预约已满");
+        }
         })
         .catch((error) => {
           console.error("Failed to fetch reserve count: ", error);
         });
-    },
-    reserveAppointment() {
-      const selectedDoctor = this.doctors.find((doctor) => doctor.value === true);
-
-      if (selectedDoctor && this.reserveCount < 10) {
-        const requestData = {
-          registTime:this.$moment(new Date()).format('YYYY-MM-DD hh:mm:ss'),
-          reserveTime: this.$moment(selectedDoctor.reserveDate).format('YYYY-MM-DD'),
-          timeRange: this.timeRange,
-          registDept: this.$store.state.dept,
-          doctorId: this.doctors[this.$data.idx].id,
-          patientId: this.$store.state.pInfo.id,
-          medicalStatus: 0,
-        };
-        console.log(requestData);
-
-        axios
-          .post("http://8.130.117.156:8080/his/registration/commit", requestData)
-          .then((res) => {
-            if (res.data) {
-              this.dialogVisible = true;
-            } else {
-              ElMessage.error("无法预约");
-            }
-          })
-          .catch((error) => {
-            console.error("预约失败: ", error);
-          });
-      } else {
-        console.log("预约已满");
-      }
     },
     select(index){
       if(this.$data.idx == -1) {

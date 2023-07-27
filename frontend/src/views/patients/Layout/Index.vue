@@ -1,7 +1,7 @@
 <template>
     <el-card class="box-card">
         <el-row>
-            <el-row :span="10"><el-avatar :size="150" :src="avatar" /></el-row>
+            <el-row :span="10"><el-avatar :size="150" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" /></el-row>
             <el-row :span="20" class="text">{{ patientName }}, 欢迎使用HIS预约挂号系统!</el-row>
         </el-row> 
     </el-card>

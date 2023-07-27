@@ -3,13 +3,14 @@
 </template>
 
 <script>
-import avatar from "@/assets/Avatar.png"
+// import avatar from "@/assets/Avatar.png"
 export default {
-  data(){
-                return {
-                    avatar:avatar,
-                }
+    name: 'Avatar',
+    data(){
+        return {
+            // avatar:avatar,
+        }
 
-        },
+    },
 }
 </script>

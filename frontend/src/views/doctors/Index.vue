@@ -1,7 +1,7 @@
 <template>
     <el-card class="box-card">
         <el-row>
-            <el-row :span="10"><el-avatar :size="150" :src="avatar" /></el-row>
+            <el-row :span="10"><el-avatar :size="150" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" /></el-row>
             <el-row :span="20">
                 <el-col class="text">现为{{doctorName}}用户使用HIS后台管理系统</el-col>
                 <el-col class="text">您有{{number}}条预约记录等待被处理</el-col>

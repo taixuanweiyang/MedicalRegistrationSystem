@@ -2,6 +2,7 @@
         <el-card class="box-card">
           <el-container>
             <el-main>
+              <h2 class="title">欢迎使用HIS医院挂号系统</h2>
               <el-form ref="loginForm" :model="loginForm" :rules="myrules" label-width="100px">
                 <el-form-item label="账号：" prop="phone">
                   <el-input v-model="loginForm.phone" placeholder="请输入" maxlength="11"/>
@@ -30,7 +31,7 @@
   margin-left:35%;
   margin-top:12%;
   width: 450px;
-  height: 300px;
+  height: 320px;
   position: absolute;
 }
 .el-input{
@@ -41,6 +42,11 @@
   margin: auto;
   margin-left: 30%;
   margin-top: 20px;
+}
+.title{
+  margin-top: 0px;
+  margin-bottom:20px;
+  margin-left:50px
 }
 </style>
 
